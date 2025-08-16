@@ -1,0 +1,61 @@
+/* clinica_odonto/core/static/core/style.css */
+
+/* Definindo a cor primária para o azul da logo */
+:root {
+    --bs-blue: #007bff; /* Cor primária do Bootstrap */
+    --primary-custom: #3182CE; /* Azul da logo */
+    --secondary-custom: #E9ECEF; /* Cinza claro */
+}
+
+/* Estilo para o corpo da página */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #F8F9FA; /* Fundo cinza claro */
+}
+
+/* Estilo para os cards */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Estilo para os botões */
+.btn-primary {
+    background-color: var(--primary-custom) !important;
+    border-color: var(--primary-custom) !important;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #2b6cb0 !important;
+    border-color: #2b6cb0 !important;
+}
+
+.btn-success {
+    background-color: #4CAF50 !important;
+    border-color: #4CAF50 !important;
+    border-radius: 8px;
+}
+
+.btn-danger {
+    border-radius: 8px;
+}
+
+.btn-warning {
+    border-radius: 8px;
+}
+
+/* Estilo para a navbar */
+.navbar {
+    background-color: #2C3E50 !important; /* Cor mais escura para contraste */
+}
+
+.navbar-brand img {
+    border-radius: 5px;
+}
