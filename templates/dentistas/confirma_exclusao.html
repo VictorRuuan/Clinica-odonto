@@ -1,0 +1,18 @@
+{# clinica_odonto/templates/dentistas/confirma_exclusao.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Excluir Dentista{% endblock %}
+
+{% block content %}
+<h2>Excluir Dentista</h2>
+<div class="alert alert-danger">
+    <p>Tem certeza que deseja excluir o dentista **{{ dentista.nome_completo }}**?</p>
+    <p>Essa ação não poderá ser desfeita.</p>
+</div>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sim, excluir</button>
+    <a href="{% url 'lista_dentistas' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

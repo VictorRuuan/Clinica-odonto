@@ -1,0 +1,33 @@
+{# clinica_odonto/templates/dentistas/cadastro_dentista.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{% if is_cadastro %}Cadastrar{% else %}Editar{% endif %} Dentista
+{% endblock %}
+
+{% block content %}
+<h2>{% if is_cadastro %}Cadastrar{% else %}Editar{% endif %} Dentista</h2>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger">
+                            {% for error in field.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+            <a href="{% url 'lista_dentistas' %}" class="btn btn-secondary mt-3">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

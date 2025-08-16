@@ -1,0 +1,31 @@
+{# clinica_odonto/templates/agendamentos/confirma_exclusao.html #}
+{% extends 'base.html' %}
+
+{% block title %}Confirmar Exclusão - Odontoclin{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Confirmar Exclusão</h1>
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">Atenção!</h4>
+                        <p>Você tem certeza que deseja excluir o agendamento de **{{ agendamento.paciente.nome_completo }}** com o dentista **{{ agendamento.dentista.username }}**?</p>
+                        <p class="mb-0">Esta ação é irreversível.</p>
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                            <button type="submit" class="btn btn-danger btn-lg me-md-2">Sim, Excluir</button>
+                            <a href="{% url 'lista_agendamentos' %}" class="btn btn-secondary btn-lg">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

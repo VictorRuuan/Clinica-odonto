@@ -1,0 +1,25 @@
+{# clinica_odonto/templates/agendamentos/detalhes_agendamento.html #}
+{% extends 'base.html' %}
+
+{% block title %}Detalhes do Agendamento - Odontoclin{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Detalhes do Agendamento</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Paciente: {{ agendamento.paciente.nome_completo }}</h5>
+            <p class="card-text"><strong>Dentista:</strong> {{ agendamento.dentista.username }}</p>
+            <p class="card-text"><strong>Data e Hora:</strong> {{ agendamento.data_hora|date:"d/m/Y H:i" }}</p>
+            <p class="card-text"><strong>Tipo de Consulta:</strong> {{ agendamento.tipo_consulta }}</p>
+            <p class="card-text"><strong>Observações:</strong> {{ agendamento.observacoes|default_if_none:"Nenhuma observação." }}</p>
+
+            <hr>
+
+            <a href="{% url 'lista_agendamentos' %}" class="btn btn-secondary">Voltar para a lista</a>
+            <a href="{% url 'editar_agendamento' agendamento.pk %}" class="btn btn-warning">Editar</a>
+            <a href="{% url 'excluir_agendamento' agendamento.pk %}" class="btn btn-danger">Excluir</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{# clinica_odonto/templates/pacientes/cadastro_paciente.html #}
+{% extends 'base.html' %} 
+
+{% block title %}Cadastrar Paciente - Odontoclin{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Cadastrar Novo Paciente</h1>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %} {# MUITO IMPORTANTE: Token de segurança do Django #}
+
+            {# Exibe erros gerais do formulário (não relacionados a um campo específico) #}
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {# Renderiza cada campo do formulário manualmente para maior controle #}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }} {# Renderiza o campo HTML com o widget configurado #}
+                    {% if field.help_text %}
+                        <div class="form-text">{{ field.help_text }}</div>
+                    {% endif %}
+                    {% if field.errors %}
+                        <div class="alert alert-danger mt-1">
+                            {% for error in field.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary mt-3">Salvar Paciente</button>
+            <a href="{% url 'lista_pacientes' %}" class="btn btn-secondary mt-3 ms-2">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

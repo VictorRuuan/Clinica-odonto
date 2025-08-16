@@ -1,0 +1,65 @@
+{# clinica_odonto/templates/agendamentos/lista_agendamentos.html #}
+{% extends 'base.html' %} 
+
+{% block title %}Lista de Agendamentos - Odontoclin{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Agendamentos</h1>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3></h3>
+    <a href="{% url 'cadastrar_agendamento' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Novo Agendamento
+    </a>
+</div>
+
+{# Formulário de Busca #}
+<form class="d-flex mb-4" method="GET" action="{% url 'lista_agendamentos' %}">
+    <input class="form-control me-2" type="search" placeholder="Buscar por paciente, dentista ou tipo" aria-label="Search" name="q" value="{{ query|default_if_none:'' }}">
+    <button class="btn btn-outline-primary" type="submit">Buscar</button>
+    {% if query %}
+        <a href="{% url 'lista_agendamentos' %}" class="btn btn-outline-secondary ms-2">Limpar Busca</a>
+    {% endif %}
+</form>
+
+{% if agendamentos %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Paciente</th>
+                    <th>Dentista</th>
+                    <th>Data e Hora</th>
+                    <th>Tipo de Consulta</th>
+                    <th>Observações</th>
+                    <th>Ações</th> {# Para futuros links de detalhes/edição #}
+                </tr>
+            </thead>
+            <tbody>
+                {% for agendamento in agendamentos %}
+                <tr>
+                    <td>{{ agendamento.paciente.nome_completo }}</td>
+                    <td>{{ agendamento.dentista.username }}</td>
+                    <td>{{ agendamento.data_hora|date:"d/m/Y H:i" }}</td>
+                    <td>{{ agendamento.tipo_consulta }}</td>
+                    <td>{{ agendamento.observacoes|default_if_none:"-" }}</td>
+      
+                    <td>
+                        {# Botões de Ações #}
+                        <a href="{% url 'detalhes_agendamento' agendamento.pk %}" class="btn btn-sm btn-info me-1"><i class="bi bi-eye"></i> Ver</a>
+                        <a href="{% url 'editar_agendamento' agendamento.pk %}" class="btn btn-sm btn-warning me-1"><i class="bi bi-pencil"></i> Editar</a>
+                        <a href="{% url 'excluir_agendamento' agendamento.pk %}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Excluir</a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info" role="alert">
+        Nenhum agendamento encontrado. {% if query %}Revise seu termo de busca.{% else %}Comece adicionando um no <a href="{% url 'cadastrar_agendamento' %}" class="alert-link">formulário de agendamento</a>.{% endif %}
+    </div>
+{% endif %}
+
+{% endblock %} {# LINHA DE FECHAMENTO ADICIONADA #}

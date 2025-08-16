@@ -1,0 +1,46 @@
+{# clinica_odonto/templates/agendamentos/cadastro_agendamento.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{% if is_cadastro %}Novo Agendamento{% else %}Editar Agendamento{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    {% if is_cadastro %}Novo Agendamento{% else %}Editar Agendamento{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <div class="form-text">{{ field.help_text }}</div>
+                        {% endif %}
+                        {% if field.errors %}
+                        <div class="text-danger">
+                            {% for error in field.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-primary mt-3">Salvar Agendamento</button>
+                    <a href="{% url 'lista_agendamentos' %}" class="btn btn-secondary mt-3">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
